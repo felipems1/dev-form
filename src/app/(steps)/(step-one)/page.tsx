@@ -1,3 +1,10 @@
+import { Metadata } from 'next'
+import { FormStepOne } from './components/form-step-one'
+
+export const metadata: Metadata = {
+  title: 'step-one',
+}
+
 export default function StepOne() {
   return (
     <div className="mr-5 mt-5">
@@ -9,17 +16,7 @@ export default function StepOne() {
 
       <hr className="mx-0 my-7 h-[1px] border-0 bg-blue-800" />
 
-      <label className="text-sm">
-        Seu nome completo
-        <input
-          type="text"
-          className="mt-2 block w-full rounded-lg border-2 border-solid border-cyan-500 bg-blue-950 px-2 py-4 text-sm text-white outline-none"
-        />
-      </label>
-
-      <button className="mt-7 cursor-pointer rounded-lg border-0 bg-green-500 px-7 py-3 text-sm font-bold text-white transition-all hover:bg-green-600">
-        Próximo
-      </button>
+      <FormStepOne />
     </div>
   )
 }
