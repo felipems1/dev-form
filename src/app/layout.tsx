@@ -5,7 +5,10 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Dev Form',
+  title: {
+    template: '%s | dev-form',
+    default: 'dev-form',
+  },
   description:
     'O formulário é projetado para coletar informações do usuário em várias etapas, facilitando o processo e tornando-o mais intuitivo.',
 }
