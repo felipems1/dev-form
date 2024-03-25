@@ -23,7 +23,7 @@ export function FormStepTwo() {
   }, [dispatch, router, state.name])
 
   const handleNextStep = () => {
-    if (state.name !== '') {
+    if (state.level !== null) {
       router.push('step-three')
     } else {
       alert('Preencha os dados.')

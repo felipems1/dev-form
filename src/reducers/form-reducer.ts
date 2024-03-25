@@ -14,7 +14,7 @@ export interface FormAction {
 export interface FormState {
   currentStep: number
   name: string
-  level: 0 | 1
+  level: 0 | 1 | null
   email: string
   github: string
 }

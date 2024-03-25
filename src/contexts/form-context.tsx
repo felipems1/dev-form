@@ -17,7 +17,7 @@ export const FormContext = createContext<FormContextType | undefined>(undefined)
 export function FormProvider({ children }: FormProviderType) {
   const initialState: FormState = {
     currentStep: 0,
-    level: 0,
+    level: null,
     email: '',
     github: '',
     name: '',
