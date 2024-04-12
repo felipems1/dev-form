@@ -15,8 +15,8 @@ export function SidebarItem({
 }: SidebarItemProps) {
   return (
     <div className="mx-0 my-7 cursor-pointer">
-      <div className="flex items-center">
-        <div className="mr-5 flex-1">
+      <div className="flex items-center px-2">
+        <div className="mr-5 hidden flex-1 lg:block">
           <h3 className="mb-1 text-right text-sm text-white">{title}</h3>
           <p className="text-right text-sm text-zinc-400">{description}</p>
         </div>
@@ -36,7 +36,7 @@ export function SidebarItem({
         </div>
 
         <div
-          className={`ml-5 mr-4 h-2 w-2 rounded-[50%] border-2 border-solid border-zinc-400 ${active ? 'bg-cyan-500' : 'bg-transparent'}`}
+          className={`mr:1 ml-3 h-2 w-2 rounded-[50%] border-2 border-solid border-zinc-400 md:ml-5 md:mr-4 ${active ? 'bg-cyan-500' : 'bg-transparent'}`}
         ></div>
       </div>
     </div>

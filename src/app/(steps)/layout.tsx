@@ -15,10 +15,10 @@ export default function StepLayout({
 
           <hr className="h-[1px] border-0 bg-blue-800" />
 
-          <div className="m-auto flex w-full max-w-[1000px] flex-1">
+          <div className="m-auto flex w-full max-w-[1000px] flex-1 pb-2">
             <Sidebar />
 
-            <div className="flex-1 pl-10 pt-3">{children}</div>
+            <div className="flex-1 pl-4 pt-3 md:pl-10">{children}</div>
           </div>
         </div>
       </div>

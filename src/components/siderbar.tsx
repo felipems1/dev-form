@@ -7,7 +7,7 @@ export function Sidebar() {
   const { state } = useForm()
 
   return (
-    <div className="w-64 border-r border-solid border-blue-800">
+    <div className="w-24 border-r border-solid border-blue-800 lg:w-64">
       <SidebarItem
         title="Pessoal"
         description="Se identifique"
