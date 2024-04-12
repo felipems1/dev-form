@@ -1,5 +1,6 @@
 'use client'
 
+import { useFinishStep } from '@/hooks/use-finish-step'
 import { useForm } from '@/hooks/use-form'
 import { FormActions } from '@/reducers/form-reducer'
 import Link from 'next/link'
@@ -8,6 +9,7 @@ import { ChangeEvent, useEffect } from 'react'
 
 export function FormStepThree() {
   const { state, dispatch } = useForm()
+  const finishStep = useFinishStep()
   const router = useRouter()
 
   useEffect(() => {
@@ -39,18 +41,7 @@ export function FormStepThree() {
     if (state.email !== '' && state.github !== '') {
       router.push('/')
       alert('Cadastro finalizado!')
-      dispatch({
-        type: FormActions.setName,
-        payload: '',
-      })
-      dispatch({
-        type: FormActions.setEmail,
-        payload: '',
-      })
-      dispatch({
-        type: FormActions.setGithub,
-        payload: '',
-      })
+      finishStep()
     } else {
       alert('Preencha os dados.')
     }

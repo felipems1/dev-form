@@ -8,6 +8,7 @@ export enum FormActions {
 
 export interface FormAction {
   type: FormActions
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload: any
 }
 
