@@ -3,7 +3,7 @@
 import { useForm } from '@/hooks/use-form'
 import { FormActions } from '@/reducers/form-reducer'
 import { useRouter } from 'next/navigation'
-import { ChangeEvent, useEffect } from 'react'
+import { ChangeEvent, FormEvent, useEffect } from 'react'
 
 export function FormStepOne() {
   const { state, dispatch } = useForm()
@@ -16,7 +16,9 @@ export function FormStepOne() {
     })
   }, [dispatch])
 
-  const handleNextStep = () => {
+  const handleNextStep = (e: FormEvent) => {
+    e.preventDefault()
+
     if (state.name !== '') {
       router.push('/step-two')
     } else {
@@ -32,7 +34,7 @@ export function FormStepOne() {
   }
 
   return (
-    <>
+    <form onSubmit={handleNextStep}>
       <label className="text-sm">
         Seu nome completo
         <input
@@ -44,11 +46,11 @@ export function FormStepOne() {
       </label>
 
       <button
-        onClick={handleNextStep}
+        type="submit"
         className="mt-7 cursor-pointer rounded-lg border-0 bg-green-500 px-7 py-3 text-sm font-bold text-white transition-all hover:bg-green-600"
       >
         Próximo
       </button>
-    </>
+    </form>
   )
 }

@@ -5,7 +5,7 @@ import { useForm } from '@/hooks/use-form'
 import { FormActions } from '@/reducers/form-reducer'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ChangeEvent, useEffect } from 'react'
+import { ChangeEvent, FormEvent, useEffect } from 'react'
 
 export function FormStepThree() {
   const { state, dispatch } = useForm()
@@ -13,15 +13,11 @@ export function FormStepThree() {
   const router = useRouter()
 
   useEffect(() => {
-    if (state.name === '') {
-      router.push('/')
-    } else {
-      dispatch({
-        type: FormActions.setCurrentStep,
-        payload: 3,
-      })
-    }
-  }, [dispatch, router, state.name])
+    dispatch({
+      type: FormActions.setCurrentStep,
+      payload: 3,
+    })
+  }, [dispatch])
 
   const handleInputGithubChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({
@@ -37,7 +33,9 @@ export function FormStepThree() {
     })
   }
 
-  const handleFinishStep = () => {
+  const handleFinishStep = (e: FormEvent) => {
+    e.preventDefault()
+
     if (state.email !== '' && state.github !== '') {
       router.push('/')
       alert('Cadastro finalizado!')
@@ -48,7 +46,7 @@ export function FormStepThree() {
   }
 
   return (
-    <>
+    <form onSubmit={handleFinishStep}>
       <label className="text-sm">
         Qual seu e-mail?
         <input
@@ -78,12 +76,12 @@ export function FormStepThree() {
         </Link>
 
         <button
-          onClick={handleFinishStep}
+          type="submit"
           className="cursor-pointer rounded-lg border-0 bg-green-500 px-7 py-3 text-sm font-bold text-white transition-all hover:bg-green-600"
         >
           Finalizar
         </button>
       </div>
-    </>
+    </form>
   )
 }

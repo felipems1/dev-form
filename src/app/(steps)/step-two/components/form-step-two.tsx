@@ -5,24 +5,22 @@ import { useForm } from '@/hooks/use-form'
 import { FormActions } from '@/reducers/form-reducer'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { FormEvent, useEffect } from 'react'
 
 export function FormStepTwo() {
   const { state, dispatch } = useForm()
   const router = useRouter()
 
   useEffect(() => {
-    if (state.name === '') {
-      router.push('/')
-    } else {
-      dispatch({
-        type: FormActions.setCurrentStep,
-        payload: 2,
-      })
-    }
-  }, [dispatch, router, state.name])
+    dispatch({
+      type: FormActions.setCurrentStep,
+      payload: 2,
+    })
+  }, [dispatch])
 
-  const handleNextStep = () => {
+  const handleNextStep = (e: FormEvent) => {
+    e.preventDefault()
+
     if (state.level !== null) {
       router.push('step-three')
     } else {
@@ -38,7 +36,7 @@ export function FormStepTwo() {
   }
 
   return (
-    <>
+    <form onSubmit={handleNextStep}>
       <SelectOption
         title="Sou iniciante"
         description="Comecei a programar há menos de 2 anos"
@@ -64,12 +62,12 @@ export function FormStepTwo() {
         </Link>
 
         <button
-          onClick={handleNextStep}
+          type="submit"
           className="cursor-pointer rounded-lg border-0 bg-green-500 px-7 py-3 text-sm font-bold text-white transition-all hover:bg-green-600"
         >
           Próximo
         </button>
       </div>
-    </>
+    </form>
   )
 }
