@@ -5,10 +5,11 @@ import { useForm } from '@/hooks/use-form'
 import { FormActions } from '@/reducers/form-reducer'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ChangeEvent, FormEvent, useEffect } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 
 export function FormStepThree() {
-  const { state, dispatch } = useForm()
+  const [formData, setFormData] = useState({ github: '', email: '' })
+  const { dispatch } = useForm()
   const finishStep = useFinishStep()
   const router = useRouter()
 
@@ -19,24 +20,20 @@ export function FormStepThree() {
     })
   }, [dispatch])
 
-  const handleInputGithubChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: FormActions.setGithub,
-      payload: e.target.value,
-    })
-  }
-
-  const handleInputEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: FormActions.setEmail,
-      payload: e.target.value,
-    })
-  }
-
   const handleFinishStep = (e: FormEvent) => {
     e.preventDefault()
 
-    if (state.email !== '' && state.github !== '') {
+    const { email, github } = formData
+
+    if (email !== '' && github !== '') {
+      dispatch({
+        type: FormActions.setGithub,
+        payload: github,
+      })
+      dispatch({
+        type: FormActions.setEmail,
+        payload: email,
+      })
       router.push('/')
       alert('Cadastro finalizado!')
       finishStep()
@@ -51,8 +48,8 @@ export function FormStepThree() {
         Qual seu e-mail?
         <input
           type="email"
-          value={state.email}
-          onChange={handleInputEmailChange}
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           className="mt-2 block w-full rounded-lg border-2 border-solid border-cyan-500 bg-blue-950 px-2 py-4 text-sm text-white outline-none"
         />
       </label>
@@ -61,8 +58,8 @@ export function FormStepThree() {
         Qual seu GitHub?
         <input
           type="text"
-          value={state.github}
-          onChange={handleInputGithubChange}
+          value={formData.github}
+          onChange={(e) => setFormData({ ...formData, github: e.target.value })}
           className="mt-2 block w-full rounded-lg border-2 border-solid border-cyan-500 bg-blue-950 px-2 py-4 text-sm text-white outline-none"
         />
       </label>

@@ -3,10 +3,11 @@
 import { useForm } from '@/hooks/use-form'
 import { FormActions } from '@/reducers/form-reducer'
 import { useRouter } from 'next/navigation'
-import { ChangeEvent, FormEvent, useEffect } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 
 export function FormStepOne() {
-  const { state, dispatch } = useForm()
+  const [name, setName] = useState('')
+  const { dispatch } = useForm()
   const router = useRouter()
 
   useEffect(() => {
@@ -19,18 +20,15 @@ export function FormStepOne() {
   const handleNextStep = (e: FormEvent) => {
     e.preventDefault()
 
-    if (state.name !== '') {
+    if (name !== '') {
+      dispatch({
+        type: FormActions.setName,
+        payload: name,
+      })
       router.push('/step-two')
     } else {
       alert('Preencha os dados.')
     }
-  }
-
-  const handleInputNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: FormActions.setName,
-      payload: e.target.value,
-    })
   }
 
   return (
@@ -39,8 +37,8 @@ export function FormStepOne() {
         Seu nome completo
         <input
           type="text"
-          value={state.name}
-          onChange={handleInputNameChange}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           className="mt-2 block w-full rounded-lg border-2 border-solid border-cyan-500 bg-blue-950 px-2 py-4 text-sm text-white outline-none"
         />
       </label>

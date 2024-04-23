@@ -5,9 +5,12 @@ import { useForm } from '@/hooks/use-form'
 import { FormActions } from '@/reducers/form-reducer'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { FormEvent, useEffect } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
+
+type SelectedType = 0 | 1 | null
 
 export function FormStepTwo() {
+  const [selected, setSelected] = useState<SelectedType>(null)
   const { state, dispatch } = useForm()
   const router = useRouter()
 
@@ -21,18 +24,15 @@ export function FormStepTwo() {
   const handleNextStep = (e: FormEvent) => {
     e.preventDefault()
 
-    if (state.level !== null) {
+    if (selected !== null) {
+      dispatch({
+        type: FormActions.setLevel,
+        payload: selected,
+      })
       router.push('step-three')
     } else {
       alert('Preencha os dados.')
     }
-  }
-
-  const handleChangeLevel = (level: number) => {
-    dispatch({
-      type: FormActions.setLevel,
-      payload: level,
-    })
   }
 
   return (
@@ -41,8 +41,8 @@ export function FormStepTwo() {
         title="Sou iniciante"
         description="Comecei a programar há menos de 2 anos"
         icon="🥳"
-        selected={state.level === 0}
-        handleSelectOption={() => handleChangeLevel(0)}
+        selected={selected === 0}
+        handleSelectOption={() => setSelected(0)}
       />
 
       <SelectOption
@@ -50,7 +50,7 @@ export function FormStepTwo() {
         description="Já programo há 2 anos ou mais"
         icon="😎"
         selected={state.level === 1}
-        handleSelectOption={() => handleChangeLevel(1)}
+        handleSelectOption={() => setSelected(1)}
       />
 
       <div className="mt-6 flex gap-4">
