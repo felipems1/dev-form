@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --fix",
+    "test": "cypress run",
     "cy:open": "cypress open"
   },
   "dependencies": {
