@@ -4,6 +4,7 @@ import { useForm } from '@/hooks/use-form'
 import { FormActions } from '@/reducers/form-reducer'
 import { useRouter } from 'next/navigation'
 import { FormEvent, useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 export function FormStepOne() {
   const [name, setName] = useState('')
@@ -27,7 +28,10 @@ export function FormStepOne() {
       })
       router.push('/step-two')
     } else {
-      alert('Preencha os dados.')
+      toast.info('Preencha os dados.', {
+        position: 'top-right',
+        duration: 1500,
+      })
     }
   }
 

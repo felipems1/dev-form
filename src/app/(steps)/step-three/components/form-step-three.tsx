@@ -6,6 +6,7 @@ import { FormActions } from '@/reducers/form-reducer'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { FormEvent, useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 export function FormStepThree() {
   const [formData, setFormData] = useState({ github: '', email: '' })
@@ -35,10 +36,16 @@ export function FormStepThree() {
         payload: email,
       })
       router.push('/')
-      alert('Cadastro finalizado!')
+      toast.success('Cadastro finalizado!', {
+        position: 'top-right',
+        duration: 1500,
+      })
       finishStep()
     } else {
-      alert('Preencha os dados.')
+      toast.info('Preencha os dados.', {
+        position: 'top-right',
+        duration: 1500,
+      })
     }
   }
 

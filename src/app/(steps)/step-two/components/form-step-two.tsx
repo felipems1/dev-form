@@ -6,6 +6,7 @@ import { FormActions } from '@/reducers/form-reducer'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { FormEvent, useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 type SelectedType = 0 | 1 | null
 
@@ -31,7 +32,10 @@ export function FormStepTwo() {
       })
       router.push('step-three')
     } else {
-      alert('Preencha os dados.')
+      toast.info('Preencha os dados.', {
+        position: 'top-right',
+        duration: 1500,
+      })
     }
   }
 
